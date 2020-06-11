@@ -1,0 +1,40 @@
+{% extends "registro/base.html" %}
+{% block titulo %}Lista de personas{% endblock %}
+{% block cuerpo %}
+<h1>Lista de personas</h1>
+<br />
+<button class="btn btn-success" data-toggle="modal" data-target="#modal-registrar">REGISTRAR</button>
+<br />
+<br />
+<table border="1px" id="example" class="display" cellspacing="0px" style="width:100%;">
+  <thead>
+    <tr>
+      <th class="text-center">ID</th>
+      <th class="text-center">Nombre</th>
+      <th class="text-center">Cédula</th>
+      <th class="text-center">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for persona in object_list %}
+  <tr>
+    <td class="text-center">{{ persona.id }}</td>
+    <td class="text-center">{{ persona.nombre }}</td>
+    <td class="text-center">{{ persona.cedula }}</td>
+    <td class="text-center">
+      <a href="{% url 'registro:editar' persona.id %}">
+        <button class="btn btn-info">EDITAR</button>
+      </a>
+      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal{{ persona.id }}">BORRAR</button>
+    </td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% include "registro/modals.html" %}
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.modal').modal('show');
+});
+</script>
+{% endblock %}
